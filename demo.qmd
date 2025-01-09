@@ -1,0 +1,68 @@
+---
+title: "Byte-sized RSE: Psychology of data viz demo"
+author: "Eirini Zormpa"
+format: html
+---
+
+```{r}
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(forcats)
+```
+
+```{r}
+life_expectancy_data <- read_csv("2007_life-expectancy.csv")
+```
+
+
+```{r}
+life_expectancy_data |>
+  ggplot(aes(x = life_expectancy, y = continent)) +
+  geom_col() +
+  ggtitle("Life expectancy in years, 2007") +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        plot.title.position = "plot")
+```
+```{r}
+life_expectancy_data_ordered <- life_expectancy_data |>
+  mutate(continent = fct_reorder(continent, life_expectancy))
+```
+
+```{r}
+life_expectancy_data_ordered |>
+  ggplot(aes(x = life_expectancy, y = continent)) +
+  geom_col() +
+  ggtitle("Life expectancy in years, 2007") +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        plot.title.position = "plot")
+```
+```{r}
+life_expectancy_data_ordered |>
+  ggplot(aes(x = life_expectancy, y = continent)) +
+  geom_point() +
+  ggtitle("Life expectancy in years, 2007") +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        plot.title.position = "plot")
+```
+
+```{r}
+life_expectancy_data_ordered |>
+  ggplot(aes(x = life_expectancy, y = continent)) +
+  geom_segment(x = 0,
+               xend = life_expectancy_data_ordered$life_expectancy,
+               y = life_expectancy_data_ordered$continent,
+               yend = life_expectancy_data_ordered$continent,
+               linewidth = 0.5) +
+  geom_point(size = 4,
+             colour = "cornflowerblue") +
+  ggtitle("Life expectancy in years, 2007") +
+  scale_x_continuous(limits = c(0, NA)) +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        plot.title.position = "plot",
+        panel.grid.minor = element_blank())
+```

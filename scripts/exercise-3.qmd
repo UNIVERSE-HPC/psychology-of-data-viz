@@ -1,0 +1,23 @@
+---
+title: "Exercise 3"
+format: html
+---
+
+```{r}
+library(here)
+library(readr)
+library(ggplot2)
+```
+
+```{r}
+life_expectancy_by_gdp <- read_csv(here("data", "life-expectancy-by-gdp.csv"))
+```
+
+```{r}
+life_expectancy_by_gdp |>
+  ggplot(aes(x = gdp_per_capita, y = life_expectancy)) +
+  geom_point(alpha = 0.5) +
+  facet_wrap(~region) +
+  theme_minimal()
+```
+

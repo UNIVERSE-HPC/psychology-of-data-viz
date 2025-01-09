@@ -5,6 +5,7 @@ format: html
 ---
 
 ```{r}
+library(here)
 library(readr)
 library(ggplot2)
 library(dplyr)
@@ -12,9 +13,8 @@ library(forcats)
 ```
 
 ```{r}
-life_expectancy_data <- read_csv("2007_life-expectancy.csv")
+life_expectancy_data <- read_csv(here("data", "2007_life-expectancy.csv"))
 ```
-
 
 ```{r}
 life_expectancy_data |>
@@ -25,6 +25,7 @@ life_expectancy_data |>
   theme(axis.title = element_blank(),
         plot.title.position = "plot")
 ```
+
 ```{r}
 life_expectancy_data_ordered <- life_expectancy_data |>
   mutate(continent = fct_reorder(continent, life_expectancy))

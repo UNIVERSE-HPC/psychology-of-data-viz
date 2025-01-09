@@ -1,0 +1,40 @@
+---
+title: "Exercise 2"
+format: html
+---
+
+
+```{r}
+library(here)
+library(readr)
+library(dplyr)
+library(forcats)
+library(ggplot2)
+```
+
+```{r}
+faculty_division <- read_csv(here("data", "faculty-division.csv"))
+```
+
+```{r}
+faculty_division_ordered <- faculty_division |>
+  mutate(faculty = fct_reorder(faculty, percentage))
+```
+
+```{r}
+faculty_division_ordered |>
+  ggplot(aes(x = faculty, y = percentage)) +
+  geom_segment(x = faculty_division_ordered$faculty,
+               xend = faculty_division_ordered$faculty,
+               y = 0,
+               yend = faculty_division_ordered$percentage,
+               linewidth = 0.5) +
+  geom_point(size = 4,
+             colour = "tomato") +
+  labs(title = "% of students enrolled in each faculty") +
+  coord_flip() +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        plot.title.position = "plot")
+```
+

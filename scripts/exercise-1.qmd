@@ -1,0 +1,28 @@
+---
+title: "Exercise 1"
+format: html
+---
+
+```{r}
+library(here)
+library(readr)
+library(ggplot2)
+```
+
+```{r}
+fish_weights <- read_csv(here("data", "fish-weights.csv"))
+```
+
+```{r}
+fish_weights |>
+  ggplot(aes(x = timepoint, y = weight, group = fish)) +
+  geom_point(size = 2) +
+  geom_line() +
+  facet_wrap(~fish) +
+  labs(title = "Growth of aquarium fish over one month",
+       y = "Weight (g)") +
+  theme_minimal() +
+  theme(axis.title.x = element_blank(),
+        plot.title.position = "plot")
+``` 
+
